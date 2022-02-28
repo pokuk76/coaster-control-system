@@ -1,4 +1,4 @@
-/*
+/* Approach with Interrupt for sensors
  * Loading - Zone 0 
  * Lift hill - Zone 1
  * Drop - Zone 2
@@ -52,11 +52,11 @@ int emergencyStop() {
   }
 }
 
-// So do we want to just continuously read sensors OR do we want to wait until a state change in one of the sensors?
+// Triggered when there is a change in one/any of the sensors
 int sensorInterrupt() {
+  
+}
 
-}
-}
 int update_zones(int *zones, int **sensor_readings){
   //
 }
