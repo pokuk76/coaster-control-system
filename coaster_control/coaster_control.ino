@@ -14,24 +14,49 @@ const int SOLENOID_1 = 11;
 const int SOLENOID_2 = 12;
 const int SOLENOID_3 = 13;
 
+// Sensor really refers to the IR transmitter and receiver acting in tandem (so their output)
+const int SENSOR_0 = 4; // sensor 0
+const int SENSOR_1 = 5; // sensor 1
+const int SENSOR_2 = 6; // sensor 2
+const int SENSOR_3 = 7; // sensor 3
+
 void setup() {
   pinMode(SOLENOID_0, OUTPUT);
   pinMode(SOLENOID_1, OUTPUT);
   pinMode(SOLENOID_2, OUTPUT);
   pinMode(SOLENOID_3, OUTPUT);
   
-  pinMode(31, INPUT);  // sensor 0
-  pinMode(33, INPUT);  // sensor 1
-  pinMode(35, INPUT);  // sensor 2
-  pinMode(37, INPUT);  // sensor 3
+  pinMode(SENSOR_0, INPUT);
+  pinMode(SENSOR_1, INPUT);
+  pinMode(SENSOR_2, INPUT);
+  pinMode(SENSOR_3, INPUT);
 
-  zones = [1,0,0,1];
+  attachInterrupt(digitalPinToInterrupt(2), emergencyStop, RISING); 
+  attachInterrupt(digitalPinToInterrupt(3), sensorInterrupt, FALLING); 
+
+  zones = [1,0,0,1]; // initial state of sensors
   update_sensors(*sensors);
   
 
   Serial.begin(9600);
 }
 
+int emergencyStop() {
+  digitalWrite(SOLENOID_0, LOW);
+  digitalWrite(SOLENOID_1, LOW);
+  digitalWrite(SOLENOID_2, LOW);
+  digitalWrite(SOLENOID_3, LOW);
+  
+  while (true) {
+    Serial.println("Emergency Stop Forever");
+  }
+}
+
+// So do we want to just continuously read sensors OR do we want to wait until a state change in one of the sensors?
+int sensorInterrupt() {
+
+}
+}
 int update_zones(int *zones, int **sensor_readings){
   //
 }
