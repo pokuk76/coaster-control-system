@@ -85,10 +85,7 @@ void update_zones(){
     initial_state = 0;
     strcpy(zones, "0101");
   }
-  else if (!initial_state && strcmp(sensors, "1001")) {
-    emergencyStop();
-  }
-  else if (strcmp(sensors, "1001") == 0) {
+  else if (!initial_state && (strcmp(sensors, "1001") == 0)) {
     emergencyStop();
   }
   else {
@@ -175,15 +172,15 @@ void loop() {
       digitalWrite(SOLENOID_3, LOW);
     }
   }
-  else if (strcmp(zones,"0101")) {
-    // release breaks to get to "0101"
+  else if (strcmp(zones,"0101") == 0) {
+    // release breaks to get to "0101"f
     // Try to release the "forward" car first as a bit of a safety measure
     digitalWrite(SOLENOID_0, LOW);
     digitalWrite(SOLENOID_2, LOW);
     digitalWrite(SOLENOID_1, HIGH); // Not sure which solenoids correspond to which breaks
     digitalWrite(SOLENOID_3, HIGH);
   }
-  else if (strcmp(zones, "1010")) {
+  else if (strcmp(zones, "1010") == 0) {
     // release break to get to "1010"
     // Try to release the "forward" car first as a bit of a safety measure
     digitalWrite(SOLENOID_1, LOW);
